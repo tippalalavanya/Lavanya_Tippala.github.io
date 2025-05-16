@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lavanya's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #000000;
+      color: #f0f0f0;
+    }
+
+    nav {
+      background: #222;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between; /* Positions brand to left, links/hamburger to right */
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-brand a { /* Styling for the new brand name */
+      color: white;
+      text-decoration: none;
+      font-size: 1.6rem; /* Adjusted size */
+      font-weight: 600; /* Bolder */
+    }
+
+    .hamburger-menu {
+      display: none; /* Hidden on desktop */
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1002;
+    }
+
+    .hamburger-menu span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger-menu.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-menu.open span:nth-child(2) { opacity: 0; }
+    .hamburger-menu.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+    nav ul.nav-links { /* These are the section links */
+      list-style: none;
+      display: flex; /* Visible as a row on desktop */
+      gap: 1.8rem;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul.nav-links li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 0.5rem 0.2rem;
+    }
+
+    nav ul.nav-links li a:hover {
+      color: #9c72c7;
+    }
+
+    @media (max-width: 768px) { /* Styles for mobile view */
+        .hamburger-menu {
+            display: flex; /* Hamburger becomes visible */
+        }
+        nav ul.nav-links {
+            display: none; /* Section links hidden by default, appear on hamburger click */
+            flex-direction: column;
+            position: absolute;
+            top: 100%; /* Positioned below the nav bar */
+            left: 0;
+            width: 100%;
+            background-color: #2a2a2a;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+        nav ul.nav-links.open {
+            display: flex; /* Shown when hamburger is open */
+        }
+        nav ul.nav-links li {
+            padding: 0.8rem 0;
+            width: 100%;
+        }
+        nav ul.nav-links li a {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 5px;
+      background-color: #A06CD5;
+      border-radius: 3px;
+    }
+
+    /* Card grid and card styles (Skills, Experience, Projects) */
+    .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+    .card {
+      background: #fff; padding: 1.5rem; border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); flex: 1 1 280px; color: #333;
+    }
+    .card h3 { color: #5f27cd; margin-bottom: 0.75rem; }
+    .card h4 { color: #444; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .card strong { color: #5f27cd; display: block; margin-bottom: 0.5rem; }
+    .tags span {
+      display: inline-block; background: #e0d4fd; color: #5f27cd;
+      padding: 5px 10px; border-radius: 12px; margin: 5px 5px 0 0; font-size: 0.85rem;
+    }
+    .buttons { margin-top: 1rem; }
+    .buttons a {
+      display: inline-block; text-decoration: none; background: #5f27cd;
+      color: #fff; padding: 0.5rem 1rem; border-radius: 8px;
+      margin-right: 1rem; transition: background 0.3s;
+    }
+    .buttons a:hover { background: #341f97; }
+
+    /* Achievements Section */
+    .achievement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .achievement-card {
+      background-color: #2d2d2d; padding: 2.5rem 2rem; border-radius: 12px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      min-height: 300px; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .achievement-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+    .achievement-icon { font-size: 3rem; color: #A06CD5; margin-bottom: 1.25rem; line-height: 1; }
+    .achievement-title { font-size: 1.3rem; font-weight: 600; color: #ffffff; margin-bottom: 1rem; }
+    .achievement-description { font-size: 0.95rem; color: #cccccc; line-height: 1.7; flex-grow: 1; }
+
+    /* Contact Section Styles */
+    #contact { background-color: #f8f9fa; padding-top: 5rem; padding-bottom: 5rem; }
+    #contact h2 { color: #333; }
+    #contact h2::after { background-color: #7B2CBF; }
+    .contact-container {
+      display: flex; flex-wrap: wrap; gap: 2.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .contact-info-card, .contact-form-card {
+      background-color: #ffffff; padding: 2.5rem; border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07); color: #333;
+    }
+    .contact-info-card { flex: 1 1 380px; }
+    .contact-form-card { flex: 1 1 520px; }
+    .contact-info-card h3 { font-size: 1.6rem; color: #7B2CBF; margin-bottom: 1.25rem; font-weight: 600; }
+    .contact-info-card p { font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 2.5rem; }
+    .info-item {
+      display: flex; align-items: center; margin-bottom: 1.5rem; font-size: 1rem; color: #333;
+    }
+    .info-item .icon {
+      width: 44px; height: 44px; background-color: #E0C3FC; color: #7B2CBF;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin-right: 1.25rem; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .info-item .icon i { line-height: 1; }
+    .social-icons { display: flex; gap: 1.25rem; margin-top: 2.5rem; }
+    .social-icon {
+      width: 44px; height: 44px; background-color: #7B2CBF; color: white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; text-decoration: none; transition: background-color 0.3s, transform 0.3s;
+    }
+    .social-icon i { line-height: 1; }
+    .social-icon:hover { background-color: #5A189A; transform: translateY(-3px); }
+    .contact-form-card label {
+      display: block; font-size: 0.95rem; color: #444; margin-bottom: 0.6rem; font-weight: 500;
+    }
+    .contact-form-card input[type="text"],
+    .contact-form-card input[type="email"],
+    .contact-form-card textarea {
+      width: 100%; padding: 0.9rem 1.1rem; margin-bottom: 1.5rem; border: 1px solid #ddd;
+      border-radius: 8px; background-color: #fdfdfd; font-family: 'Poppins', sans-serif;
+      font-size: 1rem; color: #333; transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-form-card input[type="text"]:focus,
+    .contact-form-card input[type="email"]:focus,
+    .contact-form-card textarea:focus {
+        outline: none; border-color: #A06CD5; box-shadow: 0 0 0 3px rgba(160, 108, 213, 0.2);
+    }
+    .contact-form-card textarea { min-height: 140px; resize: vertical; }
+    .contact-form-card button[type="submit"] {
+      background-color: #7B2CBF; color: white; padding: 0.9rem 2.2rem; border: none;
+      border-radius: 25px; cursor: pointer; font-weight: 500; font-size: 1.05rem;
+      transition: background-color 0.3s, transform 0.3s; display: inline-block;
+    }
+    .contact-form-card button[type="submit"]:hover { background-color: #5A189A; transform: translateY(-2px); }
+
+    /* About section specific card for text */
+    #about .content-card {
+      background-color: #2d2d2d; padding: 2rem; border-radius: 12px;
+      color: #f0f0f0; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      margin-bottom: 2.5rem; /* Space before the resume showcase box */
+    }
+    #about .content-card p { font-size: 1.05rem; line-height: 1.8; }
+
+    /* NEW RESUME SHOWCASE BOX STYLES */
+    #about .resume-showcase-box {
+      background-color: #2d2d2d; /* Consistent dark card background */
+      padding: 2.5rem; /* Generous padding */
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 1rem; /* Space after the about text card */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25); /* More prominent shadow */
+      border: 1px solid #444; /* Subtle border */
+    }
+
+    .resume-showcase-box .showcase-title {
+      font-size: 2rem; /* Larger title */
+      color: #A06CD5; /* Accent color */
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .resume-showcase-box .showcase-text {
+      font-size: 1.1rem; /* Slightly larger text */
+      color: #cccccc;
+      line-height: 1.7;
+      margin-bottom: 2rem; /* More space before button */
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .resume-showcase-box .showcase-button {
+      display: inline-block;
+      background-color: #A06CD5;
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 2.5rem; /* Larger button padding */
+      border-radius: 30px; /* More pill-shaped */
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.1rem; /* Larger button text */
+      border: none; /* Remove border if background is sufficient */
+      box-shadow: 0 4px 8px rgba(160, 108, 213, 0.3); /* Shadow matching accent */
+    }
+
+    .resume-showcase-box .showcase-button i {
+      margin-right: 0.75rem; /* More space for icon */
+    }
+
+    .resume-showcase-box .showcase-button:hover {
+      background-color: #7B2CBF; /* Darker purple */
+      transform: translateY(-3px) scale(1.03); /* Lift and slightly scale */
+      box-shadow: 0 6px 12px rgba(160, 108, 213, 0.4);
+    }
+    /* END OF NEW RESUME SHOWCASE BOX STYLES */
+
+    /* Remove or comment out old .resume-button-container & .resume-button if not used */
+    /*
+    .resume-button-container, .resume-button {
+        display: none;
+    }
+    */
+
+    footer { text-align: center; padding: 2.5rem; background: #181818; color: #aaa; margin-top: 0; }
+
+    @media (max-width: 768px) {
+        h2 { font-size: 2.6rem; padding-bottom: 15px; margin-bottom: 2.5rem; }
+        h2::after { width: 70px; height: 4px; }
+        .contact-container { flex-direction: column; gap: 1.5rem; }
+        .contact-info-card, .contact-form-card { padding: 2rem; }
+        .contact-info-card h3 { font-size: 1.4rem; }
+        #about .content-card { padding: 1.5rem; margin-bottom: 2rem; }
+        #about .content-card p { font-size: 1rem; }
+        #about .resume-showcase-box { padding: 2rem; margin-top: 2rem; }
+        .resume-showcase-box .showcase-title { font-size: 1.6rem; }
+        .resume-showcase-box .showcase-text { font-size: 1rem; }
+        .resume-showcase-box .showcase-button { padding: 0.8rem 2rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-brand">
+      <a href="#">Lavanya_Tippala</a> <!-- Added Brand Name -->
+    </div>
+    <div class="hamburger-menu" id="hamburgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="nav-links" id="navLinks"> <!-- This UL contains the section links -->
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="content-card">
+        <p>Hello! I'm Lavanya Tippala 👋, a Computer Science and Engineering student passionate about full-stack development, machine learning, and contributing to open-source. I enjoy solving real-world problems with technology.</p>
+    </div>
+
+    <!-- NEW RESUME SHOWCASE BOX -->
+    <div class="resume-showcase-box">
+        <h3 class="showcase-title">My Professional Profile</h3>
+        <p class="showcase-text">
+            Dive deeper into my qualifications, projects, and the skills I bring to the table. My comprehensive resume provides a detailed look at my journey and expertise.
+        </p>
+        <a
+          href="https://drive.google.com/file/d/10nYkXI3SbpgWYqLH8HC-lFhYb9KXNTGQ/view?usp=sharing" <!-- REPLACE WITH YOUR ACTUAL RESUME LINK -->
+     
+          <i class="fas fa-file-download"></i>  Download My  Resume 📄
+          
+        </a>
+    </div>
+    <!-- END OF NEW RESUME SHOWCASE BOX -->
+
+  </section>
+
+  <section id="skills">
+    <h2>Skills & Expertise</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Programming Languages</h3>
+        <div class="tags">
+          <span>C</span><span>Python</span><span>Java</span><span>DSA</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Web Technologies</h3>
+        <div class="tags">
+          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>ReactJS</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Database</h3>
+        <div class="tags">
+          <span>SQL</span>
+          <span>Mongo DB</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Languages</h3>
+        <div class="tags">
+          <span>English</span><span>Hindi</span><span>Telugu</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h4>2023 – Present</h4>
+        <strong>Open Source Contribution</strong>
+        <p>Contributed to GSSOC and Git platforms, collaborating on diverse global projects.</p>
+      </div>
+      <div class="card">
+        <h4>2022 – Present</h4>
+        <strong>Hackathon Participation</strong>
+        <p>
+          Participated in multiple hackathons, developing innovative solutions under time constraints and collaborating with diverse teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Face Recognition Login for Quiz Webpage</h3>
+        <p>Login using facial recognition with Python and frontend technologies.</p>
+        <div class="tags">
+          <span>Python</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
+        </div>
+        <div class="buttons">
+          <a href="https://github.com/tippalalavanya/face_recognition">GitHub</a>
+          
+        </div>
+      </div>
+      <div class="card">
+        <h3>Fish Disease Detection</h3>
+        <p>Image classification to detect fish diseases using ML and Python.</p>
+        <div class="tags">
+          <span>Python</span><span>Machine Learning</span><span>Image Classification</span>
+        </div>
+        <div class="buttons">
+          <a href="https://github.com/tippalalavanya/fish-disease-detection-ml">GitHub</a>
+          
+        </div>
+      </div>
+      <div class="card">
+        <h3>Full-stack Agrotech Website</h3>
+        <p>ML-driven seed recommendation and ecommerce site for farmers.</p>
+        <div class="tags">
+          <span>Full-stack</span><span>Machine Learning</span><span>E-commerce</span>
+        </div>
+        <div class="buttons">
+          <a href="https://github.com/tippalalavanya/farmshop-">GitHub</a>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements & Certifications</h2>
+    <div class="achievement-grid">
+      <div class="achievement-card">
+        <div class="achievement-icon">🏆</div>
+        <h3 class="achievement-title">2nd Place - National Level Hackathon</h3>
+        <p class="achievement-description">Secured second place at National Level 48-hour Hackathon (Agrotech project), Anurag University, Hyderabad, June 2024</p>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">✷</div>
+        <h3 class="achievement-title">NPTEL Online Certification</h3>
+        <p class="achievement-description">Completed the course on "Joy Of Computing Using Python" - 12-week course offered by NPTEL SWAYAM, accredited by IIT Madras</p>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">🎖️</div>
+        <h3 class="achievement-title">Meta Front-End Development Certification</h3>
+        <p class="achievement-description">Completed the comprehensive certification program focused on modern front-end development technologies</p>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">🏅</div>
+        <h3 class="achievement-title">Winner - Navishka Codathon 2k22</h3>
+        <p class="achievement-description">First place in the competitive coding challenge that tested algorithmic problem-solving skills</p>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">⭐</div>
+        <h3 class="achievement-title">Runner-up - IEEE Ideathon</h3>
+        <p class="achievement-description">Second place in the innovation competition focused on technological solutions</p>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">✯</div>
+        <h3 class="achievement-title">Runner-up - Code Debugging</h3>
+        <p class="achievement-description">Demonstrated exceptional debugging skills in a competitive environment</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Get In Touch</h2>
+    <div class="contact-container">
+      <div class="contact-info-card">
+        <h3>Contact Information</h3>
+        <p>Feel free to reach out to me for collaboration, job opportunities, or just to say hello!</p>
+        <div class="info-item">
+          <span class="icon"><i class="fas fa-envelope"></i></span>
+          <span>tippalalavanya05@gmail.com</span>
+        </div>
+        <div class="info-item">
+          <span class="icon"><i class="fas fa-phone-alt"></i></span>
+          <span>+91 7288824501</span>
+        </div>
+        <div class="info-item">
+          <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+          <span>Hyderabad, India</span>
+        </div>
+        <div class="social-icons">
+          <a href="https://github.com/tippalalavanya" target="_blank" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/lavanya-tippala-95072527b/" target="_blank" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://x.com/TippalaL28" target="_blank" class="social-icon" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <form action="#" method="POST">
+          <div>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Lavanya. All rights reserved.
+  </footer>
+
+  <script>
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburgerMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburgerMenu.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            // Only close if menu is open (which implies it's mobile view with hamburger)
+            if (navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open');
+                hamburgerMenu.classList.remove('open');
+            }
+        });
+    });
+  </script>
+
+</body>
+</html>
