@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lavanya's Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
+
+  <!-- THIS IS WHERE YOU ADD THE NEW FAVICON LINK -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✯</text></svg>">
+
+ 
+
+<style>
     * {
       margin: 0;
       padding: 0;
@@ -122,7 +127,7 @@
     h2 {
       text-align: center;
       margin-bottom: 3.5rem;
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       font-weight: 700;
       color: #ffffff;
       position: relative;
@@ -231,33 +236,33 @@
 
     /* About section specific card for text */
     #about .content-card {
-      background-color: #2d2d2d; padding: 2rem; border-radius: 12px;
-      color: #f0f0f0; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      background-color: #efeeee; padding: 2rem; border-radius: 12px;
+      color: #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       margin-bottom: 2.5rem; /* Space before the resume showcase box */
     }
     #about .content-card p { font-size: 1.05rem; line-height: 1.8; }
 
     /* NEW RESUME SHOWCASE BOX STYLES */
     #about .resume-showcase-box {
-      background-color: #2d2d2d; /* Consistent dark card background */
+      background-color: #ffffff; /* CHANGED: White background */
       padding: 2.5rem; /* Generous padding */
       border-radius: 12px;
       text-align: center;
       margin-top: 1rem; /* Space after the about text card */
-      box-shadow: 0 8px 16px rgba(0,0,0,0.25); /* More prominent shadow */
-      border: 1px solid #444; /* Subtle border */
+      box-shadow: 0 8px 16px rgba(244, 241, 241, 0.15); /* CHANGED: Adjusted shadow for light bg */
+      border: 1px solid #060606; /* CHANGED: Lighter border for white bg */
     }
 
     .resume-showcase-box .showcase-title {
       font-size: 2rem; /* Larger title */
-      color: #A06CD5; /* Accent color */
+      color: #A06CD5; /* Accent color (purple) - looks good on white */
       margin-bottom: 1rem;
       font-weight: 700;
     }
 
     .resume-showcase-box .showcase-text {
       font-size: 1.1rem; /* Slightly larger text */
-      color: #cccccc;
+      color: #333333; /* CHANGED: Dark text for readability on white */
       line-height: 1.7;
       margin-bottom: 2rem; /* More space before button */
       max-width: 650px;
@@ -267,8 +272,8 @@
 
     .resume-showcase-box .showcase-button {
       display: inline-block;
-      background-color: #A06CD5;
-      color: white;
+      background-color: #A06CD5; /* Purple background */
+      color: #000000; /* CHANGED: Black text */
       font-weight: 600;
       padding: 0.9rem 2.5rem; /* Larger button padding */
       border-radius: 30px; /* More pill-shaped */
@@ -287,6 +292,7 @@
       background-color: #7B2CBF; /* Darker purple */
       transform: translateY(-3px) scale(1.03); /* Lift and slightly scale */
       box-shadow: 0 6px 12px rgba(160, 108, 213, 0.4);
+      /* color: #000000; */ /* Text color on hover can remain black or change if desired */
     }
     /* END OF NEW RESUME SHOWCASE BOX STYLES */
 
@@ -347,11 +353,10 @@
         <p class="showcase-text">
             Dive deeper into my qualifications, projects, and the skills I bring to the table. My comprehensive resume provides a detailed look at my journey and expertise.
         </p>
-        <a
-          href="https://drive.google.com/file/d/10nYkXI3SbpgWYqLH8HC-lFhYb9KXNTGQ/view?usp=sharing" <!-- REPLACE WITH YOUR ACTUAL RESUME LINK -->
-     
-          <i class="fas fa-file-download"></i>  Download My  Resume 📄
-          
+        <!-- REPLACE WITH YOUR ACTUAL RESUME LINK -->
+        <a href="https://drive.google.com/file/d/10nYkXI3SbpgWYqLH8HC-lFhYb9KXNTGQ/view?usp=sharing"
+           class="showcase-button"> <!-- HTML CORRECTION: Added class and proper structure -->
+          <i class="fas fa-file-download"></i> Download My Resume 📄
         </a>
     </div>
     <!-- END OF NEW RESUME SHOWCASE BOX -->
